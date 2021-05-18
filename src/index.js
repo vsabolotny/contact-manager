@@ -8,14 +8,18 @@ import './style.css';
 
 const initialState = {
   contacts: ["James Smith", "Thomas Anderson", "Bruce Wayne"] 
-  };
+};
 
 // Reducer function
 function reducer(state = initialState, action) {
   switch(action.type) {
     case 'ADD_PERSON':
-      return {...state,
-        contacts: [...state.contacts, action.data]}
+      return {...state, contacts: [...state.contacts, action.data]}
+    case 'REMOVE_PERSON':
+      let contactList = state.contacts.filter(function(elem){ 
+        return elem !== action.data; 
+      }) 
+      return {...state, contacts: [...contactList]}
     default:
       return state;
   }
@@ -29,6 +33,16 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+/**
+let name = "Bruce Wayne";
+let contactlist = ["James Smith", "Thomas Anderson", "Bruce Wayne"];
+contactlist = contactlist.filter(function(elem){ 
+  console.log(elem);
+  return elem !== name; 
+}) 
+console.log(contactlist);
+*/
 
 /** Contact Manager v1
 
@@ -85,7 +99,7 @@ function ContactManager(props) {
   function removePerson(name) {
     console.log(name);
     setContacts(
-        contacts.filter(function(elem){ 
+      contacts.filter(function(elem){ 
         return elem !== name; 
       })
     );
