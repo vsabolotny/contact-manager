@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PeopleList from './components/PeopleList';
 import AddPersonForm from './components/AddPersonForm';
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import './style.css';
 
 const initialState = {
@@ -16,6 +16,7 @@ function reducer(state = initialState, action) {
     case 'ADD_PERSON':
       return {...state, contacts: [...state.contacts, action.data]}
     case 'REMOVE_PERSON':
+      console.log(action);
       let contactList = state.contacts.filter(function(elem){ 
         return elem !== action.data; 
       }) 
@@ -26,6 +27,7 @@ function reducer(state = initialState, action) {
 }
 
 const store = createStore(reducer);
+
 ReactDOM.render(
   <Provider store={store}>
     <AddPersonForm />

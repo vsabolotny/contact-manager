@@ -1,15 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux'
-
-function handleOnClick(val) {
-  console.log(val);
-  // props.handleOnClick(val);
-}
+import { connect } from 'react-redux';
+import { removePerson } from '../actions';
 
 function PeopleList(props) {
-  const arr = props.contacts;
-  const listItems = arr.map((val, index) =>
-    <li key={index} onClick={() => handleOnClick(val)}>{val}</li>
+
+  function handleOnClick(person) {
+    if(person !== '') {
+      console.log(props);
+      console.log(person);
+      props.removePerson(person);
+    }
+  }
+  const listItems = props.contacts.map((person, index) =>
+    <li key={index} onClick={() => handleOnClick(person)}>{person}</li>
   );
   return <ul>{listItems}</ul>;
 }
@@ -20,4 +23,8 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(PeopleList)
+const mapDipatchToProps = {
+  removePerson
+}
+
+export default connect(mapStateToProps, mapDipatchToProps)(PeopleList)

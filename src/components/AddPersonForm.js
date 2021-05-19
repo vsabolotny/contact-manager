@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux'
-import { addPerson } from '../actions'
+import { connect } from 'react-redux';
+import { addPerson } from '../actions';
 
 function AddPersonForm(props) {
   const [person, setPerson] = useState('');
