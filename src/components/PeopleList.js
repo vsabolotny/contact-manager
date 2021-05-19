@@ -6,8 +6,6 @@ function PeopleList(props) {
 
   function handleOnClick(person) {
     if(person !== '') {
-      console.log(props);
-      console.log(person);
       props.removePerson(person);
     }
   }

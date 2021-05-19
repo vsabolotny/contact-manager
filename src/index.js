@@ -2,26 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PeopleList from './components/PeopleList';
 import AddPersonForm from './components/AddPersonForm';
+import ActionLog from './components/ActionLog';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import './style.css';
 
 const initialState = {
-  contacts: ["James Smith", "Thomas Anderson", "Bruce Wayne"] 
+  contacts: ["James Smith", "Thomas Anderson", "Bruce Wayne"],
+  logs: ["Initial state"]
 };
 
 // Reducer function
 function reducer(state = initialState, action) {
+  const logEntry = action.type + ": " + action.data;
   switch(action.type) {
     case 'ADD_PERSON':
-      return {...state, contacts: [...state.contacts, action.data]}
+      return {...state, contacts: [...state.contacts, action.data], logs: [...state.logs, logEntry]}
     case 'REMOVE_PERSON':
-      console.log(action);
       let contactList = state.contacts.filter(function(elem){ 
         return elem !== action.data; 
       }) 
-      return {...state, contacts: [...contactList]}
+      return {...state, contacts: [...contactList], logs: [...state.logs, logEntry]}
     default:
+      console.log(state);
       return state;
   }
 }
@@ -32,6 +35,7 @@ ReactDOM.render(
   <Provider store={store}>
     <AddPersonForm />
     <PeopleList />
+    <ActionLog />
   </Provider>,
   document.getElementById('root')
 );
